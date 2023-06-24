@@ -1,0 +1,64 @@
+{ config, pkgs, ... }:
+
+ {
+  imports = [
+    ./hardware-configuration.nix
+    ./steam-deck.nix
+    ./desktop.nix
+  ];
+
+
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "nix-steam-deck";
+
+  time.timeZone = "Europe/Zurich";
+
+  i18n.defaultLocale = "en_GB.utf8";
+
+  #systemd.services.wireguard = {
+  #  enable = true;
+  #  description = "Wireguard on Demand Service";
+  #  serviceConfig = {
+  #    ExecStart = "/opt/scripts/wireguard.sh";
+  #  };
+  #  wantedBy = [ "multi-user.target" ];
+  #};
+
+  #networking.firewall = {
+  #  enable = true;
+  #  allowedTCPPorts = [ 22 ];
+  #  allowedUDPPorts = [ 51820 ];
+  #  # For Mosh
+  #  allowedUDPPortRanges = [
+  #    { from = 60000; to = 61000; }
+  #  ];
+  #};
+
+  services.openssh.enable = true;
+
+  virtualisation = {
+    waydroid.enable = true;
+    lxd.enable = true;
+  };
+
+  # Fix for https://github.com/Jovian-Experiments/Jovian-NixOS/issues/88
+  nixpkgs.overlays = [ (self: super: { alsa-ucm-conf = github:nixos/nixpkgs/nixos-22.11.legacyPackages.x86_64-linux.alsa-ucm-conf;} ) ];
+  programs.steam.enable = true;
+
+  # Use a remote machine for builds
+  #nix = {
+  #  distributedBuilds = true;
+  #  buildMachines = [
+  #    {
+  #      hostName = "nix-nvidia.tailscale";
+  #      system = "x86_64-linux";
+  #      protocol = "ssh";
+  #    }
+  #  ];
+  #};
+  system.stateVersion = "22.11";
+}
+
