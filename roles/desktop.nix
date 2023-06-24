@@ -12,7 +12,13 @@
     plymouth.enable = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
-    loader.systemd-boot.enable = true;
+    loader.grub = {
+      enable = true;
+      version = 2;
+      device = "nodev";
+      efiSupport = true;
+      useOSProber = true;
+    };
     loader.efi.canTouchEfiVariables = true;
   };
 
