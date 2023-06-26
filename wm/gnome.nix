@@ -11,4 +11,21 @@
     enable = true;
   };
   services.gnome.core-utilities.enable = false;
+
+  # Enable NetworkManager
+  networking.networkmanager.enable = true;
+  
+  # Disable wait-online service for Network Manager
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  # Seahorse (Gnome Keyring)
+  programs.seahorse.enable = true;
+
+  services = {
+    gnome = {
+      gnome-browser-connector.enable = true;
+      evolution-data-server.enable = true;
+    };
+  };
+
 }

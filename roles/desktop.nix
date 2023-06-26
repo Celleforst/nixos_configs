@@ -27,9 +27,6 @@
   # Automatically optimize store for better storage
   nix.settings.auto-optimise-store = true;
 
-  # Enable NetworkManager
-  networking.networkmanager.enable = true;
-
   # Enable SSH
   services.openssh.enable = true;
 
@@ -80,9 +77,6 @@
   # Android debugging
   #programs.adb.enable = true;
 
-  # Seahorse (Gnome Keyring)
-  programs.seahorse.enable = true;
-
   services = {
     logind = {
       extraConfig = "RuntimeDirectorySize=10G";
@@ -90,10 +84,6 @@
     unclutter = {
       enable = true;
       timeout = 5;
-    };
-    gnome = {
-      gnome-browser-connector.enable = true;
-      evolution-data-server.enable = true;
     };
     syncthing = {
       enable = true;
@@ -150,9 +140,6 @@
     General = { ControllerMode = "dual"; } ;
   };
 
-
-  # Disable wait-online service for Network Manager
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Home-manager configs
   #home-manager.users.mk = import ../roles/home-manager/linux.nix { inherit config; inherit pkgs; inherit home-manager; inherit lib; };
