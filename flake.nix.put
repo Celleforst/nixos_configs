@@ -68,7 +68,7 @@
                 $docker_bin $@
               }
             '';
-          }
+          };
         ];
         extraSpecialArgs = inputs;
       };
