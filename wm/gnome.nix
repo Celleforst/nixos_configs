@@ -10,7 +10,7 @@
   services.xserver.desktopManager.gnome = {
     enable = true;
   };
-  services.gnome.core-utilities.enable = false;
+  #services.gnome.core-utilities.enable = false;
 
   # Enable NetworkManager
   networking.networkmanager.enable = true;
