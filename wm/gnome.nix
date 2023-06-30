@@ -10,7 +10,6 @@
   services.xserver.desktopManager.gnome = {
     enable = true;
   };
-  #services.gnome.core-utilities.enable = false;
 
   # Enable NetworkManager
   networking.networkmanager.enable = true;
@@ -21,10 +20,24 @@
   # Seahorse (Gnome Keyring)
   programs.seahorse.enable = true;
 
+  # Enable Extensions
+  environment.systemPackages.gnomeExtensions = with pkgs; [ 
+    appindicator 
+    extensions-sync
+    vitals
+    swap-finger-gestures-3-to-4
+    impatience
+    gsconnect
+    burn-my-windows
+    blur-my-shell
+    nasa-apod
+  ];
+
   services = {
     gnome = {
       gnome-browser-connector.enable = true;
-      evolution-data-server.enable = true;
+      gnome-settings-daemon.enable = true;
+      core-utilities.enable = false;
     };
   };
 
