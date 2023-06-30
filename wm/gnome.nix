@@ -21,7 +21,7 @@
   programs.seahorse.enable = true;
 
   # Enable Extensions
-  environment.systemPackages.gnomeExtensions = with pkgs; [ 
+  environment.systemPackages = with pkgs.gnomeExtensions; [ 
     appindicator 
     extensions-sync
     vitals
