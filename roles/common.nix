@@ -1,9 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 {
   imports =
     [
+      home-manager.nixosModule
     ];
+
+  home-manager.useGlobalPkgs = true;
   
   environment.systemPackages = with pkgs; [
     htop
@@ -11,7 +14,7 @@
     iotop
     iftop
     rsync
-    gitAndTools.gitFull
+    git
     wget
     curl
     whois
@@ -19,8 +22,15 @@
     zip
     unzip
     tcpdump
-    neovim
   ];
   
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+  };
+
+  documentation.nixos.enable = false;
   programs.bash.enableCompletion = true;
 }

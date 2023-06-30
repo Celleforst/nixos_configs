@@ -1,14 +1,19 @@
 { config, pkgs, lib, ... }:
 
 {
+  services.xserver = {
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+    enable = true;
+
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome = {
-    enable = true;
+    displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = true;
+    desktopManager.gnome = {
+      enable = true;
+    };
+
+    excludePackages = [ pkgs.xterm ];
   };
 
   # Enable NetworkManager
@@ -21,17 +26,23 @@
   programs.seahorse.enable = true;
 
   # Enable Extensions
-  environment.systemPackages = with pkgs.gnomeExtensions; [ 
-    appindicator 
-    extensions-sync
-    vitals
-    swap-finger-gestures-3-to-4
-    impatience
-    gsconnect
-    burn-my-windows
-    blur-my-shell
-    nasa-apod
-  ];
+  #home = {
+   # packages = with pkgs; [
+    #  gnome.gnome-tweaks
+#
+ #     gnomeExtensions.appindicator
+  #    gnomeExtensions.extensions-sync
+   #   gnomeExtensions.vitals
+    #  gnomeExtensions.swap-finger-gestures-3-to-4
+     # gnomeExtensions.impatience
+#gnomeExtensions.gsconnect
+#      gnomeExtensions.burn-my-windows
+  #    gnomeExtensions.blur-my-shell
+ #     gnomeExtensions.nasa-apod
+
+ #   ];
+
+  #};
 
   services = {
     gnome = {
@@ -41,4 +52,9 @@
     };
   };
 
+  # Remove unwanted Packages
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+  ];
+  
 }
