@@ -9,8 +9,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../roles/desktop.nix
+      ../../roles/vm.nix
     ];
 
+  services.xserver.enable = true;
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
 
