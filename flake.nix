@@ -65,7 +65,7 @@
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [ ./hosts/vm/configuration.nix ];
-      }
+      };
     };
 
     # home-manager targets (non NixOS/MacOS, ideally Arch Linux)
@@ -94,7 +94,7 @@
                 $docker_bin $@
               }
             '';
-          };
+          }
         ];
         extraSpecialArgs = inputs;
       };
