@@ -144,13 +144,6 @@
   # Home-manager configs
   #home-manager.users.mk = import ../roles/home-manager/linux.nix { inherit config; inherit pkgs; inherit home-manager; inherit lib; };
 
-  # Automatically garbage collect
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
-  };
-
   # List packages installed in system profile
   environment.systemPackages = with pkgs; [
     firefox

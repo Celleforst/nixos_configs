@@ -1,12 +1,13 @@
-{ config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [
-      home-manager.nixosModule
+     <home-manager/nixos>
     ];
 
   home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
   
   environment.systemPackages = with pkgs; [
     htop
@@ -22,6 +23,7 @@
     zip
     unzip
     tcpdump
+    home-manager
   ];
   
   programs = {
@@ -33,4 +35,19 @@
 
   documentation.nixos.enable = false;
   programs.bash.enableCompletion = true;
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  
 }
