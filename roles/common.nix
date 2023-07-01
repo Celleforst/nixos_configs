@@ -24,6 +24,7 @@
     unzip
     tcpdump
     home-manager
+    parted
   ];
   
   programs = {
