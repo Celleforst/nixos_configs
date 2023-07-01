@@ -39,10 +39,10 @@
 
   outputs = inputs@{ self, nixpkgs, darwin, home-manager, jovian-nixos, nur, flake-utils, ... }:
   flake-utils.lib.eachDefaultSystem (system: let
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
     # macos targets
     packages.darwinConfigurations = {
@@ -60,6 +60,12 @@
         specialArgs = inputs;
         modules = [ ./hosts/steam-deck/configuration.nix ];
       };
+
+      nix-vm = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = inputs;
+        modules = [ ./hosts/vm/configuration.nix ];
+      }
     };
 
     # home-manager targets (non NixOS/MacOS, ideally Arch Linux)
@@ -93,5 +99,5 @@
         extraSpecialArgs = inputs;
       };
     };
-  };
+  });
 }
