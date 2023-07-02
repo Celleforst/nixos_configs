@@ -2,7 +2,7 @@
   description = "Marcello nix config";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     
     darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -10,7 +10,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,13 +22,13 @@
 
     nur.url = "github:nix-community/NUR";
 
-    lanzaboote = { 
-       url = "github:nix-community/lanzaboote"; 
-       inputs.nixpkgs.follows = "nixpkgs"; 
-       inputs.flake-compat.follows = "flake-compat"; 
-       inputs.flake-utils.follows = "flake-utils"; 
-       inputs.pre-commit-hooks-nix.follows = "pre-commit-hooks"; 
-    };
+    #lanzaboote = { 
+    #   url = "github:nix-community/lanzaboote"; 
+    #   inputs.nixpkgs.follows = "nixpkgs"; 
+    #   inputs.flake-compat.follows = "flake-compat"; 
+    #   inputs.flake-utils.follows = "flake-utils"; 
+    #   inputs.pre-commit-hooks-nix.follows = "pre-commit-hooks"; 
+    #};
 
     nix-on-droid = { 
        url = "github:t184256/nix-on-droid"; 
@@ -46,7 +46,7 @@
     in {
     # macos targets
     packages.darwinConfigurations = {
-      "macbook-pro" = darwin.lib.darwinSystem {
+      macbook-pro = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         specialArgs = inputs;
         modules = [ ./darwin/hosts/macbook-pro.nix ];
@@ -55,48 +55,16 @@
 
     # nixos targets
     packages.nixosConfigurations = {
-      nix-steam-deck = nixpkgs.lib.nixosSystem {
+      nixos-steam-deck = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
-        modules = [ ./hosts/steam-deck/configuration.nix ];
+        modules = [ ./nixos/hosts/steam-deck/configuration.nix ];
       };
 
-      nix-vm = nixpkgs.lib.nixosSystem {
+      nixos-vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
-        modules = [ ./hosts/vm/configuration.nix ];
-      };
-    };
-
-    # home-manager targets (non NixOS/MacOS, ideally Arch Linux)
-    packages.homeConfigurations = {
-      # Used in CI
-      mk = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./roles/home-manager/linux.nix
-          {
-            home = {
-              username = "mk";
-              homeDirectory = "/home/mk";
-            };
-            fonts.fontconfig.enable = true;
-            programs.home-manager.enable = true;
-            targets.genericLinux.enable = true;
-            home.packages = [
-              pkgs.colima
-              (pkgs.nerdfonts.override { fonts = [ "Hack" "DroidSansMono" "JetBrainsMono" ]; })
-            ];
-            programs.zsh.initExtra = ''
-              function docker {
-                docker_bin="$(command which docker)"
-                colima list | grep default | grep -q Running || colima start default &>/dev/null # Start/create default colima instance if not running/created
-                $docker_bin $@
-              }
-            '';
-          }
-        ];
-        extraSpecialArgs = inputs;
+        modules = [ /home/mk/nixos_configs/nixos/hosts/vm/configuration.nix ];
       };
     };
   });

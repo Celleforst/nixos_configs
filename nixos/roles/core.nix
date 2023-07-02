@@ -3,12 +3,8 @@
 {
   imports =
     [
-     <home-manager/nixos>
     ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  
   environment.systemPackages = with pkgs; [
     htop
     #telnet
@@ -23,7 +19,6 @@
     zip
     unzip
     tcpdump
-    home-manager
     parted
   ];
   
@@ -39,9 +34,8 @@
 
   nix = {
     package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = 
+      experimental-features = [ "nix-command" "flakes" ];
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;

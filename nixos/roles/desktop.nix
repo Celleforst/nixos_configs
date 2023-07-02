@@ -3,9 +3,8 @@
 {
   imports = [
      ./../wm/gnome.nix
-     ./common.nix
+     ./core.nix
   ];
-
 
   boot = {
     kernelParams = [ "quiet" "splash" ];
@@ -103,6 +102,7 @@
   users.extraGroups.vboxusers.members = [ "mk" ];
   users.extraGroups.disk.members = [ "mk" ];
 
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   # Allow x86 packages to be installed on aarch64
@@ -153,4 +153,7 @@
     usbutils
     gparted
   ];
+
+  # Home-Manger configs
+  #home-manager.users.mk = import ../../roles/home-manager/base.nix { inherit config; inherit pkgs; inherit home-manager; inherit lib; };
 }
