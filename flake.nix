@@ -64,7 +64,7 @@
       nixos-vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
-        modules = [ /home/mk/nixos_configs/nixos/hosts/vm/configuration.nix ];
+        modules = [ ./nixos/hosts/vm/configuration.nix ];
       };
     };
   });
