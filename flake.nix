@@ -47,6 +47,21 @@
       lib = nixpkgs.lib;
 
     in {
+
+    #not working yet
+    #homeManagerConfigurations = {
+    #  mk = home-manager.lib.homeManagerConfiguration {
+#	inherit system pkgs;
+#	username = "mk";
+#	homeDirectory = "/home/mk";
+#	configuration = {
+#	  imports = [
+ #	    ./users/mk/home.nix
+#	  ];
+#	};
+ #     };	
+  #  };
+
     # macos targets
     packages.darwinConfigurations = {
       macbook-pro = darwin.lib.darwinSystem {
@@ -82,5 +97,6 @@
 	modules = [ ./nixos/hosts/macbook-pro/configuration.nix ];
       };
     };
+
   });
 }

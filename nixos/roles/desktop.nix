@@ -101,7 +101,7 @@
   #  interfaces.tailscale0.allowedUDPPortRanges = [  { from = 1714; to = 1764; } ];
   #};
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Hack" "DroidSansMono" "Iosevka" "JetBrainsMono" ]; })
   ];
 
