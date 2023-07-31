@@ -43,6 +43,9 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      lib = nixpkgs.lib;
+
     in {
     # macos targets
     packages.darwinConfigurations = {
@@ -55,16 +58,28 @@
 
     # nixos targets
     packages.nixosConfigurations = {
-      nixos-steam-deck = nixpkgs.lib.nixosSystem {
+      nixos-steam-deck = lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [ ./nixos/hosts/steam-deck/configuration.nix ];
       };
 
-      nixos-vm = nixpkgs.lib.nixosSystem {
+      nixos-vm = lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [ ./nixos/hosts/vm/configuration.nix ];
+      };
+
+      nixos-surface-pro = lib.nixosSystem {
+	system = "x86_64-linux";
+	specialArgs = inputs;
+	modules = [ ./nixos/hosts/surface-pro/configuration.nix ];
+      };
+      
+      nixos-macbook-pro = lib.nixosSystem {
+	system = "x86_64-linux";
+	specialArgs = inputs;
+	modules = [ ./nixos/hosts/macbook-pro/configuration.nix ];
       };
     };
   });

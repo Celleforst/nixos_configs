@@ -4,22 +4,8 @@
   imports = [
      ./../wm/gnome.nix
      ./core.nix
+     ./grub.nix
   ];
-
-  boot = {
-    kernelParams = [ "quiet" "splash" ];
-    plymouth.enable = true;
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    loader.grub = {
-      enable = true;
-      version = 2;
-      device = "nodev";
-      efiSupport = true;
-      useOSProber = true;
-    };
-    loader.efi.canTouchEfiVariables = true;
-  };
 
   # Enable sandbox
   #nix.settings.sandbox = true;
