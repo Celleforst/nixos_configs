@@ -2,15 +2,9 @@
 
 {
   imports = [
-     ./../wm/gnome.nix
-     ./core.nix
-     ./grub.nix
+     ./gnome/default.nix
+     ./../bootloader/grub/default.nix
   ];
-
-  # Enable sandbox
-  #nix.settings.sandbox = true;
-  # Automatically optimize store for better storage
-  nix.settings.auto-optimise-store = true;
 
   # Enable SSH
   services.openssh.enable = true;
@@ -25,19 +19,17 @@
     "root"
   ];
 
-# Enable Tailscale
-  #services.tailscale.enable = true;
-
-# Configure keymap in X11
-  services.xserver = {
-	  layout = "de";
-	  xkbVariant = "";
+  networking.wireless.networks = {
+   UPC56366C7 = {
+     psk = "b73bPhnfcycN";
+   };
+   Villa-Altental = {
+     psk = "3122825303334032";
+   };
   };
 
-  i18n.defaultLocale = "en_GB.UTF-8";
-  #console = {
-#	  keymap = "de";
- # };
+# Enable Tailscale
+  #services.tailscale.enable = true;
 
 # Enable CUPS to print documents.
   services.printing.enable = true;

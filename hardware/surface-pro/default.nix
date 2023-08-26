@@ -2,19 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../roles/desktop.nix
-      ../../roles/vm.nix
+      ../../modules/desktop/default.nix
+      <nixos-hardware/microsoft/surface/surface-pro-intel>
     ];
 
-  services.xserver.enable = true;
-  # Set your time zone.
-  time.timeZone = "Europe/Zurich";
+  microsoft-surface.kernelVersion = "6.1.18";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -25,4 +23,3 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
-

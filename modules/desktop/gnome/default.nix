@@ -23,26 +23,29 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   # Seahorse (Gnome Keyring)
-  programs.seahorse.enable = true;
+  programs = {
+    seahorse.enable = true;
+    dconf.enable = true;
+  };
 
   # Enable Extensions
   #home = {
    # packages = with pkgs; [
-    #  gnome.gnome-tweaks
-#
- #     gnomeExtensions.appindicator
-  #    gnomeExtensions.extensions-sync
+   #   gnome.gnome-tweaks
+
+   #   gnomeExtensions.appindicator
+   #   gnomeExtensions.extensions-sync
    #   gnomeExtensions.vitals
-    #  gnomeExtensions.swap-finger-gestures-3-to-4
-     # gnomeExtensions.impatience
+   #   gnomeExtensions.swap-finger-gestures-3-to-4
+   #   gnomeExtensions.impatience
 #gnomeExtensions.gsconnect
 #      gnomeExtensions.burn-my-windows
   #    gnomeExtensions.blur-my-shell
  #     gnomeExtensions.nasa-apod
 
- #   ];
+#    ];
 
-  #};
+ # };
 
   services = {
     gnome = {

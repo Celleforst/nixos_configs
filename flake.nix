@@ -35,68 +35,86 @@
        inputs.home-manager.follows = "home-manager"; 
        inputs.nixpkgs.follows = "nixpkgs"; 
     };
+
+    #sops-nix = {
+    #  url = "github:Mic92/sops-nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.agenix.inputs.nixpkgs.follows = "nixpkgs";
+      #optionally choose not to download darwin deps (saves some resources on Linux)
+      inputs.agenix.inputs.darwin.follows = "";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    templates.url = "github:NixOS/templates";
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, home-manager, jovian-nixos, nur, flake-utils, ... }:
-  flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      user = "mk";
 
-      lib = nixpkgs.lib;
+      secrets = import ./secrets;
 
-    in {
+      dotfiles = ./dotfiles;
 
-    #not working yet
-    #homeManagerConfigurations = {
-    #  mk = home-manager.lib.homeManagerConfiguration {
-#	inherit system pkgs;
-#	username = "mk";
-#	homeDirectory = "/home/mk";
-#	configuration = {
-#	  imports = [
- #	    ./users/mk/home.nix
-#	  ];
-#	};
- #     };	
-  #  };
+      hosts = [
+	{ host = "phobos"; extraOverlays = [ ]; extraModules = [ ]; timezone = "Europe/Zurich"; }
+      ];
 
-    # macos targets
-    packages.darwinConfigurations = {
-      macbook-pro = darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        specialArgs = inputs;
-        modules = [ ./darwin/hosts/macbook-pro.nix ];
-      };
-    };
+      #import ./hosts/hosts.nix
 
-    # nixos targets
-    packages.nixosConfigurations = {
-      nixos-steam-deck = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules = [ ./nixos/hosts/steam-deck/configuration.nix ];
-      };
-
-      nixos-vm = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules = [ ./nixos/hosts/vm/configuration.nix ];
-      };
-
-      nixos-surface-pro = lib.nixosSystem {
-	system = "x86_64-linux";
-	specialArgs = inputs;
-	modules = [ ./nixos/hosts/surface-pro/configuration.nix ];
-      };
+      hardwares = [
+        { hardware = "macbook-pro"; stateVersion = "23.05"; }
+	];
       
-      nixos-macbook-pro = lib.nixosSystem {
-	system = "x86_64-linux";
-	specialArgs = inputs;
-	modules = [ ./nixos/hosts/macbook-pro/configuration.nix ];
-      };
-    };
+      systems = [
+	{system = "x86_64-linux";}
+	{system = "x86_64-darwin";}
+	{system = "aarch64-linux";}
+	{system = "aarch64-darwin";}
 
-  });
+      ];
+
+      commonInherits = {
+	inherit (nixpkgs) lib;
+	inherit inputs nixpkgs home-manager;
+	inherit user secrets dotfiles hosts hardwares systems;
+      };
+    in 
+    {
+      # nixos targets
+      nixosConfigurations = import ./hosts (
+	commonInherits // {
+	  isNixOS = true;
+	  isIso = false;
+	  isHardware = true;
+	});
+
+      homeConfigurations = import ./hosts (
+        commonInherits // {
+          isNixOs = false;
+	  isIso = false;
+	  isHardware = false;
+	});
+
+      isoConfigurations = import ./hosts (
+        commonInherits // {
+          isNixOs = true;
+	  isIso = true;
+	  isHardware = false;
+	});
+
+      nixosNoHardwareConfigurations = import ./hosts (
+        commonInherits // {
+          isNixOs = true;
+	  isIso = false;
+	  isHardware = false;
+	});
+      #inherit (nixpkgs) lib;
+      #inherit inputs nixpkgs home-manager nur user jovian-nixos flake-utils agenix;	
+    };
 }

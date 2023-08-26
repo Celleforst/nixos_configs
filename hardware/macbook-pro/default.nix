@@ -2,18 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../roles/steam-deck.nix
-      ../../roles/desktop.nix
+      #../core.nix
+      ../../modules/desktop
     ];
 
+  services.xserver.enable = true;
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
+
+  boot.loader.grub.enable = lib.mkForce false;
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
+  boot.loader.systemd-boot.enable = true;
+
+  services.xserver = {
+    layout = "ch";
+    xkbVariant = "de_mac";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -22,6 +32,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
 
