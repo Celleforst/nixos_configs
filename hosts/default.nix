@@ -1,6 +1,6 @@
-{ lib, inputs, secrets, dotfiles, hosts, hardwares, systems, isNixOS, isIso, isHardware, user, nixpkgs, home-manager, ... }:
+{ lib, inputs, secrets, dotfiles, hosts, hardwares, systems, isNixOS, isIso, isHardware, user, nixpkgs, home-manager, agenix, ... }:
 let
-  mkHost = { host, hardware, stateVersion, system, timezone, extraOverlays, extraModules }: isNixOS: isIso: isHardware:
+  mkHost = { host, hardware, stateVersion, system, timezone, extraOverlays, extraModules, extraHWModules}: isNixOS: isIso: isHardware:
     let
       pkgs = import nixpkgs {
         inherit system;
@@ -18,7 +18,7 @@ let
 
       extraArgs = { inherit pkgs inputs isIso isHardware user secrets dotfiles timezone hardware system stateVersion; hostname = "nix-" + host; };
 
-      extraSpecialModules = extraModules ++ lib.optional isHardware  ../hardware/${hardware} ++ lib.optional isIso "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix";
+      extraSpecialModules = extraModules ++ lib.optional isHardware ../hardware/${hardware} ++ extraHWModules ++ lib.optional isIso "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix";
     in
     if isNixOS
     then
@@ -30,6 +30,7 @@ let
             ./configuration.nix
             ./${host}
             home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -51,6 +52,7 @@ let
           modules = [
             ./home.nix
             ./${ host }/home.nix
+            agenix.nixosModules.default
           ];
         };
 

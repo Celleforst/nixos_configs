@@ -19,30 +19,17 @@
     unzip
     tcpdump
     parted
+    neovim
   ];
-  
-  programs = {
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-    };
-
-    git = {
-      enable = true;
-      #userName = "Marcello Krahforst";
-      #userEmail = "marcello.2001@hotmail.com";
-    };
-  };
 
   services.xserver = {
     layout = lib.mkDefault "de";
-    xkbOptions = "caps:escape";
   };
 
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = lib.mkDefault "Europe/Zurich";
 
+  # Actually already configured in flake
   nixpkgs.config.allowUnfree = lib.mkDefault true;
   nixpkgs.config.allowUnsupportedSystem = lib.mkDefault true;
 

@@ -2,8 +2,11 @@
 
 {
   imports = [
-     ./gnome/default.nix
-     ./../bootloader/grub/default.nix
+     ./gnome
+     ./../bootloader/grub
+     ../services/wifi
+     ../services/printing
+     ../services/pipewire
   ];
 
   # Enable SSH
@@ -19,31 +22,6 @@
     "root"
   ];
 
-  networking.wireless.networks = {
-   UPC56366C7 = {
-     psk = "b73bPhnfcycN";
-   };
-   Villa-Altental = {
-     psk = "3122825303334032";
-   };
-  };
-
-# Enable Tailscale
-  #services.tailscale.enable = true;
-
-# Enable CUPS to print documents.
-  services.printing.enable = true;
-
-# Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = lib.mkForce false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = lib.mkForce true;
-    alsa.enable = lib.mkForce true;
-    alsa.support32Bit = lib.mkForce true;
-    pulse.enable = lib.mkForce true;
-  };
 
   ## Experimental flag allows battery reporting for bluetooth devices
   systemd.services.bluetooth.serviceConfig.ExecStart = [
@@ -51,22 +29,9 @@
     "${pkgs.bluez}/libexec/bluetooth/bluetoothd --experimental"
   ];
 
-  # Android debugging
-  #programs.adb.enable = true;
-
   services = {
     logind = {
       extraConfig = "RuntimeDirectorySize=10G";
-    };
-    unclutter = {
-      enable = true;
-      timeout = 5;
-    };
-    syncthing = {
-      enable = true;
-      user = "mk";
-      dataDir = "/home/mk";
-      configDir = "/home/mk/.config";
     };
   };
 
@@ -80,11 +45,6 @@
   users.extraGroups.vboxusers.members = [ "mk" ];
   users.extraGroups.disk.members = [ "mk" ];
 
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  # Allow x86 packages to be installed on aarch64
-  nixpkgs.config.allowUnsupportedSystem = true;
 
   #networking.firewall = {
   #  enable = true;
@@ -112,26 +72,14 @@
     "/run/current-system/sw/bin/zsh"
   ];
 
-  # Bluetooth settings
-  hardware.bluetooth.settings = {
-    # Necessary for Airpods
-    General = { ControllerMode = "dual"; } ;
-  };
-
-
-  # Home-manager configs
-  #home-manager.users.mk = import ../roles/home-manager/linux.nix { inherit config; inherit pkgs; inherit home-manager; inherit lib; };
-
   # List packages installed in system profile
   environment.systemPackages = with pkgs; [
     firefox
     bitwarden
-    alacritty
-    #thunar
     usbutils
+    nemo
+    qpdfview
     gparted
   ];
 
-  # Home-Manger configs
-  #home-manager.users.mk = import ../../roles/home-manager/base.nix { inherit config; inherit pkgs; inherit home-manager; inherit lib; };
 }

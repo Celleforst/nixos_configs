@@ -8,8 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/desktop/default.nix
-      <nixos-hardware/microsoft/surface/surface-pro-intel>
     ];
 
   microsoft-surface.kernelVersion = "6.1.18";

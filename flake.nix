@@ -51,15 +51,24 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     templates.url = "github:NixOS/templates";
+
+    dotfiles = {
+      url = "github:Celleforst/dotfiles";
+      flake = false;
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, dotfiles, nixos-hardware, ... }@inputs:
     let
       user = "mk";
 
       secrets = import ./secrets;
 
-      dotfiles = ./dotfiles;
+      #dotfiles = ./dotfiles;
 
       hosts = [
 	{ host = "phobos"; extraOverlays = [ ]; extraModules = [ ]; timezone = "Europe/Zurich"; }
@@ -68,7 +77,9 @@
       #import ./hosts/hosts.nix
 
       hardwares = [
-        { hardware = "macbook-pro"; stateVersion = "23.05"; }
+        { hardware = "macbook-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.apple-t2 ]; }
+        { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ jovian-nixos/modules ]; }
+        { hardware = "surface-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.microsoft-surface-pro-intel ]; }
 	];
       
       systems = [
@@ -81,8 +92,8 @@
 
       commonInherits = {
 	inherit (nixpkgs) lib;
-	inherit inputs nixpkgs home-manager;
-	inherit user secrets dotfiles hosts hardwares systems;
+	inherit inputs nixpkgs home-manager agenix;
+	inherit user secrets hosts dotfiles hardwares systems;
       };
     in 
     {

@@ -8,10 +8,10 @@
     initrd.verbose = false;
     loader.grub = {
       enable = true;
-      device = "nodev";
-      efiSupport = true;
-      useOSProber = true;
+      device = lib.mkDefault "nodev";
+      efiSupport = lib.mkDefault true;
+      useOSProber = lib.mkDefault true;
     };
-    loader.efi.canTouchEfiVariables = true;
+    loader.efi.canTouchEfiVariables = lib.mkDefault true;
   };
 }

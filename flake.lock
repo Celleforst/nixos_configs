@@ -63,6 +63,22 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1687725742,
+        "narHash": "sha256-CLL3/ZqB0hhIhkfID0xQNyxZzqtURl9s9HU+QxW3L0M=",
+        "owner": "Celleforst",
+        "repo": "dotfiles",
+        "rev": "9e1f1b54aa78437f4c559f2cd1a9b15b961ad1bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Celleforst",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -188,6 +204,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1692952286,
+        "narHash": "sha256-TsrtPv3+Q1KR0avZxpiJH+b6fX/R/hEQVHbjl1ebotY=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "817e297fc3352fadc15f2c5306909aa9192d7d97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1677676435,
@@ -303,10 +335,12 @@
       "inputs": {
         "agenix": "agenix",
         "darwin": "darwin_2",
+        "dotfiles": "dotfiles",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "jovian-nixos": "jovian-nixos",
         "nix-on-droid": "nix-on-droid",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "templates": "templates"

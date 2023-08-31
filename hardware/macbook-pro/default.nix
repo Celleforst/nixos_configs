@@ -8,16 +8,14 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      #../core.nix
-      ../../modules/desktop
     ];
 
-  services.xserver.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
 
-  boot.loader.grub.enable = lib.mkForce false;
-  boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
+  boot.loader.grub.enable = false;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
 
   services.xserver = {
