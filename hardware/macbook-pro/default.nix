@@ -8,15 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/bootloader/systemd
     ];
-
-
-  # Set your time zone.
-  time.timeZone = "Europe/Zurich";
-
-  boot.loader.grub.enable = false;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
 
   services.xserver = {
     layout = "ch";

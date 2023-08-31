@@ -36,6 +36,16 @@
   documentation.nixos.enable = false;
   programs.bash.enableCompletion = true;
 
+  users.users = {
+    "root" = {
+    };
+
+    "mk" = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+    };
+  };
+
   nix = {
     package = pkgs.nixFlakes;
     settings.experimental-features = [ "nix-command" "flakes" ];

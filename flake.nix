@@ -107,21 +107,21 @@
 
       homeConfigurations = import ./hosts (
         commonInherits // {
-          isNixOs = false;
+          isNixOS = false;
 	  isIso = false;
 	  isHardware = false;
 	});
 
       isoConfigurations = import ./hosts (
         commonInherits // {
-          isNixOs = true;
+          isNixOS = true;
 	  isIso = true;
 	  isHardware = false;
 	});
 
       nixosNoHardwareConfigurations = import ./hosts (
         commonInherits // {
-          isNixOs = true;
+          isNixOS = true;
 	  isIso = false;
 	  isHardware = false;
 	});

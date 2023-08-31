@@ -7,7 +7,7 @@
 
   home = {
     username = "${user}";
-    homeDirectory = "/home/${user}";
+    homeDirectory = lib.mkForce "/home/${user}";
   };
 
   programs = {
