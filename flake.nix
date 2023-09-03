@@ -76,6 +76,8 @@
 
       #import ./hosts/hosts.nix
 
+      # commonBuilders = [ "bastli-nixos" ];
+
       hardwares = [
         { hardware = "macbook-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.apple-t2 ]; }
         { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ jovian-nixos/modules ]; }

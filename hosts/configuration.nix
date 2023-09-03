@@ -20,6 +20,7 @@
     tcpdump
     parted
     neovim
+    inputs.agenix.packages."${system}".default
   ];
 
   services.xserver = {
