@@ -71,7 +71,8 @@
       #dotfiles = ./dotfiles;
 
       hosts = [
-	{ host = "phobos"; extraOverlays = [ ]; extraModules = [ ]; timezone = "Europe/Zurich"; }
+	{ host = "callisto"; extraOverlays = [ ]; extraModules = [ ]; timezone = "Europe/Zurich"; }
+	{ host = "saturn"; extraOverlays = [ ]; extraModules = [ ]; timezone = "Europe/Zurich"; }
       ];
 
       #import ./hosts/hosts.nix
@@ -82,6 +83,7 @@
         { hardware = "macbook-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.apple-t2 ]; }
         { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ jovian-nixos/modules ]; }
         { hardware = "surface-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.microsoft-surface-pro-intel ]; }
+        { hardware = "server"; stateVersion = "23.05"; extraHWModules = [ ]; }
 	];
       
       systems = [
