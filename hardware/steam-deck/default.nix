@@ -14,7 +14,7 @@ let
 in {
   # Import jovian modules
   imports = [ 
-    "${jovian-nixos}/modules"
+    # "${jovian-nixos}/modules"
       ./hardware-configuration.nix
       # ../core.nix
       ../../modules/desktop/default.nix
