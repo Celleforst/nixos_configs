@@ -7,7 +7,7 @@
 let
   # Fetch the "development" branch of the Jovian-NixOS repository
   jovian-nixos = builtins.fetchGit {
-    url = "https://github.com/Jovian-Experiments/Jovian-NixOS";
+    url = "https://github.com/Celleforst/Jovian-NixOS";
     ref = "development";
   };
 
@@ -87,7 +87,7 @@ in {
     gnomeExtensions.dash-to-dock
     jupiter-dock-updater-bin
     steamdeck-firmware
-    steam
+    # steam
   ];
 
   # This value determines the NixOS release from which the default
