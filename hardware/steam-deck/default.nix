@@ -31,6 +31,7 @@ in {
   services.xserver.displayManager.defaultSession = "steam-wayland";
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "mk";
+  services.displayManager.enable = true;
 
   systemd.services.gamescope-switcher = {
     wantedBy = [ "graphical.target" ];
