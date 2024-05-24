@@ -65,4 +65,4 @@ in
     Map each element of the list applying the mkHost function to its elements and returning a set in the listToAttrs format
     builtins.listToAttrs on the result
   */
-builtins.listToAttrs (map (mInput@{ host, hardware, system, ... }: { name = "nix-" + host; value = mkHost mInput isNixOS isIso isHardware; }) permutatedHosts)
+builtins.listToAttrs (map (mInput@{ host, hardware, system, ... }: { name = "nix-" + host + "-" + hardware; value = mkHost mInput isNixOS isIso isHardware; }) permutatedHosts)
