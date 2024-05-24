@@ -14,7 +14,7 @@ let
 in {
   # Import jovian modules
   imports = [ 
-    # "${jovian-nixos}/modules"
+    "${jovian-nixos}/modules"
       ./hardware-configuration.nix
       # ../core.nix
       ../../modules/desktop/default.nix
@@ -87,7 +87,7 @@ in {
     gnomeExtensions.dash-to-dock
     jupiter-dock-updater-bin
     steamdeck-firmware
-    # steam
+    steam
   ];
 
   # This value determines the NixOS release from which the default
