@@ -12,13 +12,6 @@
       ../../modules/bootloader/grub
     ]; 
 
-  jovian = {
-    steam.enable = true;
-    devices.steamdeck = {
-      enable = true;
-    };
-  };
-
   services.xserver.displayManager.gnome.enable = true;
   
   jovian = {
