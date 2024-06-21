@@ -15,10 +15,7 @@
     };
 
     # Fetch the "development" branch of the Jovian-NixOS repository (Steam Deck)
-    jovian-nixos = {
-      url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
-      flake = false;
-    };
+    jovian-nixos.url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?ref=development";
 
     nur.url = "github:nix-community/NUR";
 
@@ -62,7 +59,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, dotfiles, nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, dotfiles, nixos-hardware, jovian-nixos, ... }@inputs:
     let
       user = "mk";
 
@@ -81,7 +78,7 @@
 
       hardwares = [
         { hardware = "macbook-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.apple-t2 ]; }
-        { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ ]; }
+        { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ jovian-nixos ]; }
         { hardware = "surface-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.microsoft-surface-pro-intel ]; }
         { hardware = "server"; stateVersion = "23.05"; extraHWModules = [ ]; }
 	];
