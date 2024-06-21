@@ -7,9 +7,9 @@
 {
   # Import jovian modules
   imports = [ 
-      # (jovian-nixos + "/modules")
+      (jovian-nixos + "/modules")
       ./hardware-configuration.nix
-      # ../../modules/bootloader/grub
+      ../../modules/bootloader/grub
     ]; 
 
   # services.xserver.displayManager.gnome.enable = true;
