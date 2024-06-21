@@ -93,7 +93,7 @@
 
       commonInherits = {
 	inherit (nixpkgs) lib;
-	inherit inputs nixpkgs home-manager agenix;
+	inherit inputs nixpkgs home-manager agenix jovian-nixos;
 	inherit user secrets hosts dotfiles hardwares systems;
       };
     in 
