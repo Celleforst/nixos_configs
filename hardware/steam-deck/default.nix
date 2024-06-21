@@ -9,6 +9,7 @@
   imports = [ 
       (jovian-nixos + "/modules")
       ./hardware-configuration.nix
+      ../../modules/bootloader/grub
     ]; 
 
   jovian = {
