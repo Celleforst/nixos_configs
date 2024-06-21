@@ -2,30 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, jovian-nixos, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Import jovian modules
   imports = [ 
-      (jovian-nixos + "/modules")
       ./hardware-configuration.nix
-      ../../modules/bootloader/grub
+      ../../modules/steam-deck
     ]; 
 
-  # services.xserver.displayManager.gnome.enable = true;
   
-  jovian = {
-    steam = {
-	enable = true;
-	autoStart = true;
-	desktopSession = "gnome";
-	user = "mk";
-    };
-    devices.steamdeck = {
-      enable = true;
-    };
-  };
-
+  
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
