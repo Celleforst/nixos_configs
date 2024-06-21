@@ -9,10 +9,10 @@
   imports = [ 
       (jovian-nixos + "/modules")
       ./hardware-configuration.nix
-      ../../modules/bootloader/grub
+      # ../../modules/bootloader/grub
     ]; 
 
-  services.xserver.displayManager.gnome.enable = true;
+  # services.xserver.displayManager.gnome.enable = true;
   
   jovian = {
     steam = {
