@@ -18,3 +18,4 @@ jovian = {
       enable = true;
     };
   };
+}
