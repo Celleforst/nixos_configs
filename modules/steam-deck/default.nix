@@ -1,4 +1,4 @@
-{ config, pkgs, lib, jovian-nixos, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Import jovian modules
