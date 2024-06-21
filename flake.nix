@@ -78,7 +78,7 @@
 
       hardwares = [
         { hardware = "macbook-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.apple-t2 ]; }
-        { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ ]; }
+        { hardware = "steam-deck"; stateVersion = "23.05"; extraHWModules = [ jovian-nixos ]; }
         { hardware = "surface-pro"; stateVersion = "23.05"; extraHWModules = [ nixos-hardware.nixosModules.microsoft-surface-pro-intel ]; }
         { hardware = "server"; stateVersion = "23.05"; extraHWModules = [ ]; }
 	];
