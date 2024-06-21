@@ -1,6 +1,13 @@
 { config, pkgs, lib, ... }:
+let
 
-{
+  # Fetch the "development" branch of the Jovian-NixOS repository
+  jovian-nixos = builtins.fetchGit {
+    url = "https://github.com/Jovian-Experiments/Jovian-NixOS";
+    ref = "development";
+  };
+
+in {
   # Import jovian modules
   imports = [ 
       (jovian-nixos + "/modules")
